@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct6e22hvn0rer"]
+
+[ext_resource type="Texture2D" uid="uid://btetfykx8ihfj" path="res://Assets/me.jpg" id="1_qsm03"]
+[ext_resource type="Script" uid="uid://bhj0a3uft4d6e" path="res://Scenes/Dragthething.gd" id="2_4yiq7"]
+
+[node name="lil_guye" type="Node"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(591, 286)
+texture = ExtResource("1_qsm03")
+script = ExtResource("2_4yiq7")

@@ -1,0 +1,120 @@
+[gd_scene load_steps=13 format=3 uid="uid://biqgs0wf57muw"]
+
+[ext_resource type="Script" uid="uid://b04nk5klnoxh4" path="res://Scenes/lil_guye.gd" id="1_wkakj"]
+[ext_resource type="Texture2D" uid="uid://by8i5s6081it5" path="res://Desktop Buddie Sprites/Screenshot 2025-06-13 085146.png" id="2_7d57l"]
+[ext_resource type="Script" uid="uid://coxdutk2021x3" path="res://ReactToFilePickUp.gd" id="2_gjuin"]
+[ext_resource type="Texture2D" uid="uid://ba0cb4k0kdood" path="res://Desktop Buddie Sprites/Screenshot 2025-06-13 085142.png" id="3_gjuin"]
+[ext_resource type="Texture2D" uid="uid://40pn6xhsvx5y" path="res://Desktop Buddie Sprites/Screenshot 2025-06-13 085154.png" id="4_e6hni"]
+[ext_resource type="Texture2D" uid="uid://dyubbq06hyxhs" path="res://Desktop Buddie Sprites/Screenshot 2025-06-27 200321.png" id="4_gjuin"]
+[ext_resource type="Texture2D" uid="uid://cdmraw2ugtrul" path="res://Desktop Buddie Sprites/Screenshot 2025-06-13 085135.png" id="5_t6gb6"]
+[ext_resource type="Texture2D" uid="uid://kb4y8myt46fj" path="res://Desktop Buddie Sprites/Screenshot 2025-06-25 015520.png" id="6_dgf5b"]
+[ext_resource type="Texture2D" uid="uid://co7qmqfulu86m" path="res://Desktop Buddie Sprites/Screenshot 2025-06-25 015528.png" id="7_uqi2x"]
+[ext_resource type="Texture2D" uid="uid://by8uf5q7es1nr" path="res://Desktop Buddie Sprites/Screenshot 2025-06-25 015538.png" id="8_if37q"]
+[ext_resource type="Texture2D" uid="uid://b70m3lqs1ayal" path="res://Desktop Buddie Sprites/Screenshot 2025-06-25 015555.png" id="9_ywjox"]
+[ext_resource type="Script" uid="uid://280smi7vsmt6" path="res://Scenes/MouseLocation.gd" id="10_5dhrw"]
+
+[node name="Window" type="Window" node_paths=PackedStringArray("held_up", "held_down", "held_left", "held_right", "normal_hold", "content_root")]
+transparent_bg = true
+initial_position = 4
+size = Vector2i(450, 450)
+borderless = true
+always_on_top = true
+transparent = true
+script = ExtResource("1_wkakj")
+held_up = NodePath("Node/UP")
+held_down = NodePath("Node/DOWN")
+held_left = NodePath("Node/LEFT")
+held_right = NodePath("Node/RIGHT")
+normal_hold = NodePath("Node/Held")
+content_root = NodePath("Node2/PanelContainer")
+
+[node name="Node2" type="Node" parent="." node_paths=PackedStringArray("drop_sprite")]
+script = ExtResource("2_gjuin")
+drop_sprite = NodePath("PanelContainer/FolderPickUp")
+
+[node name="VisualWIndowBorder" type="PanelContainer" parent="Node2"]
+offset_left = -37.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 37.0
+scale = Vector2(13.12, 11.76)
+
+[node name="PanelContainer" type="PanelContainer" parent="Node2"]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Sleep" type="Sprite2D" parent="Node2/PanelContainer"]
+visible = false
+modulate = Color(5.19812e-06, 0.875619, 0.94655, 1)
+position = Vector2(251, 256)
+texture = ExtResource("2_7d57l")
+
+[node name="Sleep2" type="Sprite2D" parent="Node2/PanelContainer"]
+modulate = Color(0, 1, 1, 1)
+position = Vector2(234, 270)
+scale = Vector2(0.56, 0.56)
+texture = ExtResource("4_gjuin")
+
+[node name="NotHeld" type="Sprite2D" parent="Node2/PanelContainer"]
+visible = false
+modulate = Color(0, 0.8513, 0.147146, 1)
+position = Vector2(250, 250)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("3_gjuin")
+
+[node name="FolderPickUp" type="Sprite2D" parent="Node2/PanelContainer"]
+visible = false
+modulate = Color(0.953792, 0.970755, 0, 1)
+position = Vector2(252, 260)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("4_e6hni")
+
+[node name="Held" type="Sprite2D" parent="Node2/PanelContainer"]
+visible = false
+modulate = Color(0.995683, 0.392192, 0.32956, 1)
+position = Vector2(251, 254)
+texture = ExtResource("5_t6gb6")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="LEFT" type="Sprite2D" parent="Node"]
+visible = false
+position = Vector2(241, 253)
+scale = Vector2(0.321968, 0.321968)
+texture = ExtResource("6_dgf5b")
+
+[node name="UP" type="Sprite2D" parent="Node"]
+visible = false
+position = Vector2(251, 246)
+scale = Vector2(0.300419, 0.300419)
+texture = ExtResource("7_uqi2x")
+
+[node name="DOWN" type="Sprite2D" parent="Node"]
+visible = false
+position = Vector2(253, 245)
+scale = Vector2(0.519995, 0.519995)
+texture = ExtResource("8_if37q")
+
+[node name="RIGHT" type="Sprite2D" parent="Node"]
+visible = false
+position = Vector2(241, 253)
+scale = Vector2(-0.322, 0.322)
+texture = ExtResource("6_dgf5b")
+
+[node name="Held" type="Sprite2D" parent="Node"]
+visible = false
+position = Vector2(242, 253)
+scale = Vector2(0.320001, 0.320001)
+texture = ExtResource("9_ywjox")
+
+[node name="Node3" type="Node" parent="."]
+script = ExtResource("10_5dhrw")
+
+[node name="Panel" type="Panel" parent="Node3"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(12.5, 12.5)

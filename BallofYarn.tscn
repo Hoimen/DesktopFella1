@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://y1qwwa8lqfwe"]
+
+[ext_resource type="Script" uid="uid://gfcxxfj3p54h" path="res://YarnMoveScript.gd" id="1_3xsd5"]
+[ext_resource type="Texture2D" uid="uid://duy75h31hki0a" path="res://Desktop Buddie Sprites/Screenshot 2025-06-27 200307.png" id="1_4p0la"]
+[ext_resource type="Script" uid="uid://niskvay4mpy0" path="res://DELLATER.gd" id="3_hvyt7"]
+
+[node name="Window" type="Window"]
+transparent_bg = true
+initial_position = 4
+borderless = true
+always_on_top = true
+transparent = true
+script = ExtResource("1_3xsd5")
+
+[node name="Screenshot2025-06-27200307" type="Sprite2D" parent="."]
+position = Vector2(51.0001, 49)
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("1_4p0la")
+script = ExtResource("3_hvyt7")

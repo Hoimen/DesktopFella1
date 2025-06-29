@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://r033h2d5w8i0"]
+
+[ext_resource type="Script" uid="uid://cy2ommtjoqmpr" path="res://Scenes/OpenLilFellaWindow.gd" id="1_x4av3"]
+[ext_resource type="PackedScene" uid="uid://biqgs0wf57muw" path="res://Lil_Fella_Better.tscn" id="2_rpqi1"]
+[ext_resource type="PackedScene" uid="uid://y1qwwa8lqfwe" path="res://BallofYarn.tscn" id="3_rpqi1"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="PanelContainer" type="PanelContainer" parent="." node_paths=PackedStringArray("trigger_button")]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(12.48, 12.36)
+script = ExtResource("1_x4av3")
+popup_scene = ExtResource("2_rpqi1")
+trigger_button = NodePath("Button")
+
+[node name="Button" type="Button" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="PanelContainer/Button" node_paths=PackedStringArray("trigger_button")]
+layout_mode = 2
+offset_left = 53.0449
+offset_right = 93.0449
+offset_bottom = 40.0
+script = ExtResource("1_x4av3")
+popup_scene = ExtResource("3_rpqi1")
+trigger_button = NodePath(".")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -18.0
+offset_right = 536.0
+offset_bottom = 137.0
+theme_override_font_sizes/font_size = 100
+text = "Spawn fella"
+
+[node name="Label" type="Label" parent="Label"]
+offset_left = 666.0
+offset_right = 1220.0
+offset_bottom = 137.0
+theme_override_font_sizes/font_size = 100
+text = "Spawn Ball"
