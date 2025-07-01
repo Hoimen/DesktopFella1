@@ -2,7 +2,7 @@ extends Node
 
 const DAMPING_RATE := 1       # the a part in e^{-a t}
 const FREQUENCY := 10.0            # the w part in sin(w t)
-const BOUNCE_AMPLITUDE := 2000.0    # the A part 
+const BOUNCE_AMPLITUDE := 200.0    # the A part 
 const MIN_AMPLITUDE := 0.1         # stop bouncing if smaller than this
 
 var is_dragging := false
@@ -18,7 +18,7 @@ func _process(delta):
 	var window_size := Vector2(window.size)
 
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		is_bouncing = false
+		is_bouncing = false 
 
 		if not is_dragging:
 			var window_pos := Vector2(window.position)

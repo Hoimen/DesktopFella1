@@ -2,11 +2,10 @@ extends Node
 
 @export var drop_sprite: Sprite2D
 
+
 func _ready():
 	if drop_sprite:
 		drop_sprite.visible = false
-	else:
-		push_warning("Drop Sprite not assigned!")
 
 func _files_dropped(files: PackedStringArray, screen_position: Vector2):
 	if files.size() > 0:
@@ -16,5 +15,3 @@ func _files_dropped(files: PackedStringArray, screen_position: Vector2):
 				drop_sprite.global_position = screen_position
 				drop_sprite.visible = true
 			print("Folder dropped: ", path)
-		else:
-			print("Dropped item is not a folder: ", path)

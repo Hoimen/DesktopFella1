@@ -1,14 +1,14 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1751159926
+::res://::1751224519
 AspectRatio.gd::GDScript/GDScript::1368128603778386150::1750981014::0::1::::<>Node<><>0<>0<><>::
-BallofYarn.tscn::PackedScene/PackedScene::1739217985296909780::1751158573::0::1::::<><><>0<>0<><>::uid://gfcxxfj3p54h::::res://YarnMoveScript.gd<>uid://duy75h31hki0a::::res://Desktop Buddie Sprites/Screenshot 2025-06-27 200307.png<>uid://niskvay4mpy0::::res://DELLATER.gd
+BallofYarn.tscn::PackedScene::1739217985296909780::1751211528::0::1::::<><><>0<>0<><>::uid://gfcxxfj3p54h::::res://YarnMoveScript.gd<>uid://duy75h31hki0a::::res://Desktop Buddie Sprites/Screenshot 2025-06-27 200307.png<>uid://niskvay4mpy0::::res://DELLATER.gd
 DELLATER.gd::GDScript/GDScript::930081857255791285::1751132065::0::1::::<>Sprite2D<><>0<>0<><>::
 export_presets.cfg::TextFile/TextFile::-1::1750880301::0::1::::<><><>0<>0<><>::
-Lil_Fella_Better.tscn::PackedScene/PackedScene::2981359270447193710::1751158573::0::1::::<><><>0<>0<><>::uid://b04nk5klnoxh4::::res://Scenes/lil_guye.gd<>uid://by8i5s6081it5::::res://Desktop Buddie Sprites/Screenshot 2025-06-13 085146.png<>uid://coxdutk2021x3::::res://ReactToFilePickUp.gd<>uid://ba0cb4k0kdood::::res://Desktop Buddie Sprites/Screenshot 2025-06-13 085142.png<>uid://40pn6xhsvx5y::::res://Desktop Buddie Sprites/Screenshot 2025-06-13 085154.png<>uid://dyubbq06hyxhs::::res://Desktop Buddie Sprites/Screenshot 2025-06-27 200321.png<>uid://cdmraw2ugtrul::::res://Desktop Buddie Sprites/Screenshot 2025-06-13 085135.png<>uid://kb4y8myt46fj::::res://Desktop Buddie Sprites/Screenshot 2025-06-25 015520.png<>uid://co7qmqfulu86m::::res://Desktop Buddie Sprites/Screenshot 2025-06-25 015528.png<>uid://by8uf5q7es1nr::::res://Desktop Buddie Sprites/Screenshot 2025-06-25 015538.png<>uid://b70m3lqs1ayal::::res://Desktop Buddie Sprites/Screenshot 2025-06-25 015555.png<>uid://280smi7vsmt6::::res://Scenes/MouseLocation.gd
-MainScene.tscn::PackedScene/PackedScene::1246570273275312733::1751158624::0::1::::<><><>0<>0<><>::uid://cy2ommtjoqmpr::::res://Scenes/OpenLilFellaWindow.gd<>uid://biqgs0wf57muw::::res://Lil_Fella_Better.tscn<>uid://y1qwwa8lqfwe::::res://BallofYarn.tscn
+Lil_Fella_Better.tscn::PackedScene::2981359270447193710::1751211528::0::1::::<><><>0<>0<><>::uid://b04nk5klnoxh4::::res://Scenes/lil_guye.gd<>uid://by8i5s6081it5::::res://Desktop Buddie Sprites/Screenshot 2025-06-13 085146.png<>uid://coxdutk2021x3::::res://ReactToFilePickUp.gd<>uid://ba0cb4k0kdood::::res://Desktop Buddie Sprites/Screenshot 2025-06-13 085142.png<>uid://40pn6xhsvx5y::::res://Desktop Buddie Sprites/Screenshot 2025-06-13 085154.png<>uid://dyubbq06hyxhs::::res://Desktop Buddie Sprites/Screenshot 2025-06-27 200321.png<>uid://cdmraw2ugtrul::::res://Desktop Buddie Sprites/Screenshot 2025-06-13 085135.png<>uid://kb4y8myt46fj::::res://Desktop Buddie Sprites/Screenshot 2025-06-25 015520.png<>uid://co7qmqfulu86m::::res://Desktop Buddie Sprites/Screenshot 2025-06-25 015528.png<>uid://by8uf5q7es1nr::::res://Desktop Buddie Sprites/Screenshot 2025-06-25 015538.png<>uid://b70m3lqs1ayal::::res://Desktop Buddie Sprites/Screenshot 2025-06-25 015555.png<>uid://280smi7vsmt6::::res://Scenes/MouseLocation.gd<>uid://lib7wkqbiakl::::res://PetlilFella.gd
+MainScene.tscn::PackedScene::1246570273275312733::1751211528::0::1::::<><><>0<>0<><>::uid://cy2ommtjoqmpr::::res://Scenes/OpenLilFellaWindow.gd<>uid://biqgs0wf57muw::::res://Lil_Fella_Better.tscn<>uid://y1qwwa8lqfwe::::res://BallofYarn.tscn
+PetlilFella.gd::GDScript::788711336138922799::1751211365::0::1::::<>Node2D<><>0<>0<><>::
 ReactToFilePickUp.gd::GDScript/GDScript::5803184748171381466::1750885643::0::1::::<>Node<><>0<>0<><>::
-README.md::TextFile/TextFile::-1::1751053829::0::1::::<><><>0<>0<><>::
-YarnMoveScript.gd::GDScript/GDScript::431618674051875569::1751158572::0::1::::<>Node<><>0<>0<><>::
+YarnMoveScript.gd::GDScript::431618674051875569::1751207790::0::1::::<>Node<><>0<>0<><>::
 ::res://Builds/::1751048768
 ::res://Desktop Buddie Sprites/::1751054040
 me.jpg::CompressedTexture2D/CompressedTexture2D::3729430052761926911::1749767405::1751054039::1::::<><><>0<>0<>2dbc4dab3c52b6f99cbf3f647ca0ba9a<>res://.godot/imported/me.jpg-1f4c2ddd9650b59cbd2b5f3526a8b425.ctex::
@@ -27,11 +27,11 @@ Screenshot 2025-06-27 200321.png::CompressedTexture2D/CompressedTexture2D::88851
 Screenshot 2025-06-27 200329.png::CompressedTexture2D/CompressedTexture2D::3117218738136194579::1751047785::1751054039::1::::<><><>0<>0<>f67228def58cc1c32f58875035cb212e<>res://.godot/imported/Screenshot 2025-06-27 200329.png-e8d47c00ae366e6c52d8721488c9b052.ctex::
 Screenshot 2025-06-27 200335.png::CompressedTexture2D/CompressedTexture2D::5031196055941594057::1751047785::1751054039::1::::<><><>0<>0<>1f38b44e76f9b857cae2b6237947923e<>res://.godot/imported/Screenshot 2025-06-27 200335.png-ee8784f36c85dff9b2ca720295f27402.ctex::
 temparrow2.png::CompressedTexture2D/CompressedTexture2D::6074400162213608278::1749843492::1751054039::1::::<><><>0<>0<>f1ec2ed9760cdff96716acb4a8f5cf4b<>res://.godot/imported/temparrow2.png-b300169b6e8ecd01c5a5da1208d96153.ctex::
-::res://Scenes/::1751155083
+::res://Scenes/::1751206534
 Dragthething.gd::GDScript/GDScript::2897841415568631526::1749847784::0::1::::<>Sprite2D<><>0<>0<><>::
-lil_guye.gd::GDScript/GDScript::4201817500022944775::1751155083::0::1::::<>Node<><>0<>0<><>::
+lil_guye.gd::GDScript::4201817500022944775::1751206534::0::1::::<>Node<><>0<>0<><>::
 MouseLocation.gd::GDScript/GDScript::1964773957341652405::1751141803::0::1::::<>Node<><>0<>0<><>::
 OpenLilFellaWindow.gd::GDScript/GDScript::6513983941543938943::1750882332::0::1::::<>Node<><>0<>0<><>::
-ReactScript.gd::GDScript/GDScript::5497579554684118494::1751153265::0::1::::<>Panel<><>0<>0<><>::
+ReactScript.gd::GDScript::5497579554684118494::1751206534::0::1::::<>Panel<><>0<>0<><>::
 ::res://utility_scripts/::1749852890
 global.gd::GDScript/GDScript::4912528353722019882::1749852890::0::1::::<>Node<><>0<>0<><>::
