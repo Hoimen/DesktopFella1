@@ -27,6 +27,10 @@ window/stretch/mode="viewport"
 window/per_pixel_transparency/allowed=true
 window/vsync/vsync_mode=0
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gopilot_utils/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

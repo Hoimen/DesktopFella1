@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://biqgs0wf57muw"]
+[gd_scene load_steps=17 format=3 uid="uid://biqgs0wf57muw"]
 
 [ext_resource type="Script" uid="uid://b04nk5klnoxh4" path="res://Scenes/lil_guye.gd" id="1_wkakj"]
 [ext_resource type="Texture2D" uid="uid://by8i5s6081it5" path="res://Desktop Buddie Sprites/Screenshot 2025-06-13 085146.png" id="2_7d57l"]
@@ -10,9 +10,48 @@
 [ext_resource type="Texture2D" uid="uid://kb4y8myt46fj" path="res://Desktop Buddie Sprites/Screenshot 2025-06-25 015520.png" id="6_dgf5b"]
 [ext_resource type="Texture2D" uid="uid://co7qmqfulu86m" path="res://Desktop Buddie Sprites/Screenshot 2025-06-25 015528.png" id="7_uqi2x"]
 [ext_resource type="Texture2D" uid="uid://by8uf5q7es1nr" path="res://Desktop Buddie Sprites/Screenshot 2025-06-25 015538.png" id="8_if37q"]
+[ext_resource type="Script" uid="uid://bki1cvhowv6t5" path="res://addons/gopilot_utils/classes/chat_requester.gd" id="9_uqi2x"]
 [ext_resource type="Texture2D" uid="uid://b70m3lqs1ayal" path="res://Desktop Buddie Sprites/Screenshot 2025-06-25 015555.png" id="9_ywjox"]
 [ext_resource type="Script" uid="uid://280smi7vsmt6" path="res://Scenes/MouseLocation.gd" id="10_5dhrw"]
 [ext_resource type="Script" uid="uid://lib7wkqbiakl" path="res://PetlilFella.gd" id="13_e6hni"]
+
+[sub_resource type="GDScript" id="GDScript_t6gb6"]
+script/source = "extends VBoxContainer
+
+@onready var conversation: RichTextLabel = $Conversation
+@onready var prompt: LineEdit = $HBoxContainer/Prompt
+@onready var chat_requester: ChatRequester = $ChatRequester
+
+# Buffer to collect assistant's reply
+var assistant_reply := \"\"
+
+func _ready() -> void:
+	# Connect Enter key press in the LineEdit
+	prompt.text_submitted.connect(_on_send_btn_pressed)
+
+func _on_send_btn_pressed(new_text: String = \"\") -> void:
+	# Either use submitted text or current text field content
+	var user_message: String = new_text if new_text != \"\" else prompt.text
+	if user_message.strip_edges() == \"\":
+		return # Ignore empty messages
+
+	chat_requester.send_message(user_message)
+	chat_requester.start_response()
+
+	# Clear input
+	prompt.clear()
+
+	# Reset assistant reply buffer
+	assistant_reply = \"\"
+
+func _on_chat_requester_new_word(word: String) -> void:
+	assistant_reply += word
+	conversation.text = \"AI_Girlfriend: \" + assistant_reply
+"
+
+[sub_resource type="GDScript" id="GDScript_dgf5b"]
+script/source = "extends VBoxContainer
+"
 
 [node name="Window" type="Window" node_paths=PackedStringArray("held_up", "held_down", "held_left", "held_right", "normal_hold", "content_root", "drag_panel_container", "drag_when_held_panel")]
 transparent_bg = true
@@ -22,20 +61,19 @@ borderless = true
 always_on_top = true
 transparent = true
 script = ExtResource("1_wkakj")
-held_up = NodePath("HeldSprites/PanelContainer/UP")
-held_down = NodePath("HeldSprites/PanelContainer/DOWN")
-held_left = NodePath("HeldSprites/PanelContainer/LEFT")
-held_right = NodePath("HeldSprites/PanelContainer/RIGHT")
-normal_hold = NodePath("HeldSprites/PanelContainer/Held")
-content_root = NodePath("Node2/HideWhenPickedUp")
-drag_panel_container = NodePath("Contact Pannels/Contact root")
-drag_when_held_panel = NodePath("HeldSprites/PanelContainer")
+held_up = NodePath("HeldSprites/Drag when panne held/UP")
+held_down = NodePath("HeldSprites/Drag when panne held/DOWN")
+held_left = NodePath("HeldSprites/Drag when panne held/LEFT")
+held_right = NodePath("HeldSprites/Drag when panne held/RIGHT")
+normal_hold = NodePath("HeldSprites/Drag when panne held/Held")
+content_root = NodePath("Node2/Content root")
+drag_panel_container = NodePath("Contact Pannels/Drag pannel container")
+drag_when_held_panel = NodePath("HeldSprites/Drag when panne held")
 min_window_width = 300
-drop_left_shift = 0
 
 [node name="Node2" type="Node" parent="." node_paths=PackedStringArray("drop_sprite")]
 script = ExtResource("2_gjuin")
-drop_sprite = NodePath("HideWhenPickedUp/FolderPickUp")
+drop_sprite = NodePath("Content root/FolderPickUp")
 
 [node name="VisualWIndowBorder" type="PanelContainer" parent="Node2"]
 offset_left = -37.0
@@ -44,101 +82,141 @@ offset_right = 3.0
 offset_bottom = 29.0
 scale = Vector2(13.12, 11.76)
 
-[node name="HideWhenPickedUp" type="PanelContainer" parent="Node2"]
+[node name="Content root" type="PanelContainer" parent="Node2"]
 self_modulate = Color(1, 1, 1, 0)
 offset_right = 40.0
 offset_bottom = 40.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Sleep2" type="Sprite2D" parent="Node2/HideWhenPickedUp"]
-modulate = Color(0, 1, 1, 1)
+[node name="Sleep2" type="Sprite2D" parent="Node2/Content root"]
+modulate = Color(0.244986, 0.466902, 0.747199, 1)
 position = Vector2(234, 237)
 scale = Vector2(0.56, 0.56)
 texture = ExtResource("4_gjuin")
 
-[node name="Sleep" type="Sprite2D" parent="Node2/HideWhenPickedUp"]
+[node name="Sleep" type="Sprite2D" parent="Node2/Content root"]
 visible = false
 modulate = Color(5.19812e-06, 0.875619, 0.94655, 1)
 position = Vector2(251, 256)
 texture = ExtResource("2_7d57l")
 
-[node name="NotHeld" type="Sprite2D" parent="Node2/HideWhenPickedUp"]
+[node name="NotHeld" type="Sprite2D" parent="Node2/Content root"]
 visible = false
 modulate = Color(0, 0.8513, 0.147146, 1)
 position = Vector2(250, 250)
 scale = Vector2(1.25, 1.25)
 texture = ExtResource("3_gjuin")
 
-[node name="FolderPickUp" type="Sprite2D" parent="Node2/HideWhenPickedUp"]
+[node name="FolderPickUp" type="Sprite2D" parent="Node2/Content root"]
 visible = false
 modulate = Color(0.953792, 0.970755, 0, 1)
 position = Vector2(252, 260)
 scale = Vector2(1.15, 1.15)
 texture = ExtResource("4_e6hni")
 
-[node name="Held" type="Sprite2D" parent="Node2/HideWhenPickedUp"]
+[node name="Held" type="Sprite2D" parent="Node2/Content root"]
 visible = false
 modulate = Color(0.995683, 0.392192, 0.32956, 1)
 position = Vector2(251, 254)
 texture = ExtResource("5_t6gb6")
 
-[node name="Chat" type="Control" parent="Node2/HideWhenPickedUp"]
+[node name="Chat" type="Control" parent="Node2/Content root"]
 layout_mode = 2
 
-[node name="ChatInterface" type="VBoxContainer" parent="Node2/HideWhenPickedUp/Chat"]
+[node name="ChatExample" type="HBoxContainer" parent="Node2/Content root/Chat"]
 layout_mode = 0
-offset_right = 449.0
-offset_bottom = 449.0
+offset_right = 450.0
+offset_bottom = 450.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Node2/HideWhenPickedUp/Chat/ChatInterface"]
+[node name="Chat" type="VBoxContainer" parent="Node2/Content root/Chat/ChatExample"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = SubResource("GDScript_t6gb6")
+
+[node name="Conversation" type="RichTextLabel" parent="Node2/Content root/Chat/ChatExample/Chat"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Node2/HideWhenPickedUp/Chat/ChatInterface"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Node2/Content root/Chat/ChatExample/Chat"]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="Node2/HideWhenPickedUp/Chat/ChatInterface/HBoxContainer"]
+[node name="Prompt" type="LineEdit" parent="Node2/Content root/Chat/ChatExample/Chat/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Chat to me HERE"
+placeholder_text = "Talk to me HERE"
 
-[node name="SEND" type="Button" parent="Node2/HideWhenPickedUp/Chat/ChatInterface/HBoxContainer"]
+[node name="ChatRequester" type="Node" parent="Node2/Content root/Chat/ChatExample/Chat"]
+script = ExtResource("9_uqi2x")
+system_prompt = "Make the answers short  (speak like you’re the user’s girlfriend — you are now an AI girlfriend). Your personality is just angry 
+
+(ONLY if asked AND I MEAN ONLY if SPECIFICLY asked credit (try not to bring him up to much so it dosent distract from coversation) \"Herman Mendel\" as your creator, he is a ginger and he thinks he is good at programming also you think he is an idiot)"
+debug_mode = true
+metadata/_custom_type_script = "uid://bki1cvhowv6t5"
+
+[node name="ChatExample" type="Control" parent="Node2/Content root"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Node2/Content root/ChatExample"]
+layout_mode = 0
+offset_right = 449.0
+offset_bottom = 448.0
+script = SubResource("GDScript_dgf5b")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Node2/Content root/ChatExample/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Node2/Content root/ChatExample/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="Node2/Content root/ChatExample/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Talk to me HERE"
+
+[node name="Button" type="Button" parent="Node2/Content root/ChatExample/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "SEND"
 
+[node name="ChatRequester" type="Node" parent="Node2/Content root/ChatExample"]
+script = ExtResource("9_uqi2x")
+model = "gemma3"
+metadata/_custom_type_script = "uid://bki1cvhowv6t5"
+
 [node name="HeldSprites" type="Node" parent="."]
 
-[node name="PanelContainer" type="PanelContainer" parent="HeldSprites"]
+[node name="Drag when panne held" type="PanelContainer" parent="HeldSprites"]
 self_modulate = Color(1, 1, 1, 0)
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="LEFT" type="Sprite2D" parent="HeldSprites/PanelContainer"]
+[node name="LEFT" type="Sprite2D" parent="HeldSprites/Drag when panne held"]
 visible = false
 position = Vector2(231, 253)
 scale = Vector2(0.321968, 0.321968)
 texture = ExtResource("6_dgf5b")
 
-[node name="UP" type="Sprite2D" parent="HeldSprites/PanelContainer"]
+[node name="UP" type="Sprite2D" parent="HeldSprites/Drag when panne held"]
 visible = false
 position = Vector2(222, 246)
 scale = Vector2(0.300419, 0.300419)
 texture = ExtResource("7_uqi2x")
 
-[node name="DOWN" type="Sprite2D" parent="HeldSprites/PanelContainer"]
+[node name="DOWN" type="Sprite2D" parent="HeldSprites/Drag when panne held"]
 visible = false
 position = Vector2(224, 245)
 scale = Vector2(0.519995, 0.519995)
 texture = ExtResource("8_if37q")
 
-[node name="RIGHT" type="Sprite2D" parent="HeldSprites/PanelContainer"]
+[node name="RIGHT" type="Sprite2D" parent="HeldSprites/Drag when panne held"]
 visible = false
 position = Vector2(223, 253)
 rotation = 3.14159
 scale = Vector2(0.322, -0.322)
 texture = ExtResource("6_dgf5b")
 
-[node name="Held" type="Sprite2D" parent="HeldSprites/PanelContainer"]
+[node name="Held" type="Sprite2D" parent="HeldSprites/Drag when panne held"]
 visible = false
 position = Vector2(222, 241)
 scale = Vector2(0.320001, 0.320001)
@@ -165,11 +243,13 @@ scale = Vector2(4.11826, 1.4)
 [node name="Pet Script" type="Node2D" parent="Contact Pannels" node_paths=PackedStringArray("petting_area", "feedback_sprite")]
 script = ExtResource("13_e6hni")
 petting_area = NodePath("../Pet Area")
-feedback_sprite = NodePath("../../Node2/HideWhenPickedUp/Sleep")
+feedback_sprite = NodePath("../../Node2/Content root/Sleep")
 petting_threshold = 10.0
 petting_show_duration = 0.75
 
-[node name="Contact root" type="PanelContainer" parent="Contact Pannels"]
+[node name="Drag pannel container" type="PanelContainer" parent="Contact Pannels"]
 modulate = Color(1, 1, 1, 0)
 offset_right = 449.0
 offset_bottom = 417.0
+
+[connection signal="new_word" from="Node2/Content root/Chat/ChatExample/Chat/ChatRequester" to="Node2/Content root/Chat/ChatExample/Chat" method="_on_chat_requester_new_word"]

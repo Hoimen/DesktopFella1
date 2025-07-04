@@ -1,15 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://r033h2d5w8i0"]
+[gd_scene load_steps=5 format=3 uid="uid://r033h2d5w8i0"]
 
 [ext_resource type="Script" uid="uid://cy2ommtjoqmpr" path="res://Scenes/OpenLilFellaWindow.gd" id="1_x4av3"]
 [ext_resource type="PackedScene" uid="uid://biqgs0wf57muw" path="res://Lil_Fella_Better.tscn" id="2_rpqi1"]
 [ext_resource type="PackedScene" uid="uid://y1qwwa8lqfwe" path="res://BallofYarn.tscn" id="3_rpqi1"]
+
+[sub_resource type="GDScript" id="GDScript_rpqi1"]
+resource_name = "logs_script"
 
 [node name="Node2D" type="Node2D"]
 
 [node name="PanelContainer" type="PanelContainer" parent="." node_paths=PackedStringArray("trigger_button")]
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(12.48, 12.36)
+scale = Vector2(12.72, 9.29779)
 script = ExtResource("1_x4av3")
 popup_scene = ExtResource("2_rpqi1")
 trigger_button = NodePath("Button")
@@ -26,6 +29,19 @@ script = ExtResource("1_x4av3")
 popup_scene = ExtResource("3_rpqi1")
 trigger_button = NodePath(".")
 
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="Label" type="Label" parent="."]
 offset_left = -18.0
 offset_right = 536.0
@@ -40,3 +56,90 @@ offset_right = 1220.0
 offset_bottom = 137.0
 theme_override_font_sizes/font_size = 100
 text = "Spawn Ball"
+
+[node name="Chat LOGS" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 846.0
+offset_top = 498.0
+offset_right = 846.0
+offset_bottom = 498.0
+
+[node name="ChatExample" type="HBoxContainer" parent="Chat LOGS"]
+layout_mode = 0
+offset_right = 450.0
+offset_bottom = 450.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Chat LOGS/ChatExample"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Chat" type="VBoxContainer" parent="Chat LOGS/ChatExample/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = SubResource("GDScript_rpqi1")
+
+[node name="ConversationLogs" type="RichTextLabel" parent="Chat LOGS/ChatExample/PanelContainer/Chat"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Chat LOGS/ChatExample/PanelContainer/Chat"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="Chat LOGS/ChatExample/PanelContainer/Chat/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Chat LOGS/ChatExample/PanelContainer/Chat/HBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CHAT LOGS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Chat LOGS2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 577.0
+offset_top = 473.0
+offset_right = 577.0
+offset_bottom = 473.0
+scale = Vector2(0.639998, 0.639998)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Chat LOGS2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Chat LOGS2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="Chat LOGS2/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "HOW TO GET LOCAL DESKTOP AI 🤩
+
+-INSTALL OLLAMA
+Head to the Ollama download page
+👉 https://ollama.com/download 
+
+-For Windows 🪟
+Download the Windows installer (.msi file). 
+
+- For MacOS 🍎
+Download the macOS .pkg installer.
+or install with Homebrew:
+brew install ollama
+
+-For Linux 🐧
+Use this command or something
+curl -fsSL https://ollama.com/install.sh | sh
+ill be honest i dont get linux people
+
+-DOWNLOAD AI MODEL 🤖
+
+-ollama pull llama3.2 
+or
+-ollama pull gemma3:latest"

@@ -15,7 +15,6 @@ const GRAVITY := 5000.0
 const MAX_FALL_SPEED := 3000.0
 
 @export var min_window_width: int = 400
-@export var drop_left_shift: int = 100
 
 var timer := 0.0
 var last_mouse_pos := Vector2.ZERO
@@ -25,7 +24,8 @@ var is_falling := false
 var is_holding_window := false
 
 var original_window_size: Vector2
-var drag_offset_to_window: Vector2 = Vector2.ZERO
+var drag_window_center: Vector2
+var drag_offset_to_center: Vector2
 
 func _ready():
 	_hide_all_sprites()
@@ -33,6 +33,8 @@ func _ready():
 
 	var window = get_window()
 	original_window_size = Vector2(window.size)
+	drag_window_center = Vector2(window.position) + window.size * 0.5
+	drag_offset_to_center = Vector2.ZERO
 
 	if drag_panel_container:
 		drag_panel_container.gui_input.connect(_on_drag_panel_gui_input)
@@ -42,11 +44,14 @@ func _on_drag_panel_gui_input(event):
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				is_holding_window = true
+
 				var window = get_window()
-				drag_offset_to_window = Vector2(DisplayServer.mouse_get_position()) - Vector2(window.position)
+				var mouse_pos = Vector2(DisplayServer.mouse_get_position())
+
+				drag_window_center = Vector2(window.position) + window.size * 0.5
+				drag_offset_to_center = mouse_pos - drag_window_center
 			else:
 				is_holding_window = false
-				_shift_window_left()
 
 func _process(delta):
 	timer += delta
@@ -57,44 +62,54 @@ func _process(delta):
 	var usable_rect := DisplayServer.screen_get_usable_rect()
 
 	if is_holding_window:
+		# update center based on dragging
+		drag_window_center = mouse_pos - drag_offset_to_center
+
+		# Clamp center horizontally only
+		var half_width = window.size.x * 0.5
+		drag_window_center.x = clamp(
+			drag_window_center.x,
+			usable_rect.position.x + half_width,
+			usable_rect.position.x + usable_rect.size.x - half_width
+		)
+
 		# Instantly shrink window width
 		window.size.x = min_window_width
 
-		# Shift held panel left to fake center shrinking
-		_update_drag_when_held_shift(window)
+		# Compute window position so center stays fixed
+		window.position = Vector2i((drag_window_center - window.size * 0.5).floor())
 
-		var delta_pos := mouse_pos - last_mouse_pos
-
+		# Allow vertical motion freely
+		var delta_pos = mouse_pos - last_mouse_pos
 		if delta_pos.length() >= MOVEMENT_THRESHOLD:
 			_update_direction_sprite(delta_pos)
 			time_since_last_move = 0.0
 
-		# Calculate new window position based on drag offset
-		var new_window_pos = (mouse_pos - drag_offset_to_window).floor()
-
-		new_window_pos.x = clamp(
-			new_window_pos.x,
-			usable_rect.position.x,
-			usable_rect.position.x + usable_rect.size.x - window.size.x
-		)
-		new_window_pos.y = clamp(
-			new_window_pos.y,
-			usable_rect.position.y,
-			usable_rect.position.y + usable_rect.size.y - window.size.y
-		)
-
-		window.position = Vector2i(new_window_pos)
-
 		fall_speed = 0.0
 		is_falling = false
+
+		# keep window horizontally on screen
+		_keep_window_on_screen(window, usable_rect)
+
+		# Shift panel left to fake center shrinking
+		_update_drag_when_held_shift(window)
 	else:
-		# Instantly restore window width
+		# compute center before restoring
+		var center_x = window.position.x + window.size.x * 0.5
+
+		# restore width
 		window.size.x = original_window_size.x
 
-		# Reset held panel shift
+		# reposition to keep center
+		window.position.x = int(center_x - window.size.x * 0.5)
+
+		# keep window horizontally on screen
+		_keep_window_on_screen(window, usable_rect)
+
+		# reset panel shift
 		_update_drag_when_held_shift(window)
 
-		# Gravity drop logic
+		# gravity drop
 		if window.position.y + window.size.y < usable_rect.position.y + usable_rect.size.y:
 			fall_speed = min(fall_speed + GRAVITY * delta, MAX_FALL_SPEED)
 			var new_y = window.position.y + int(fall_speed * delta)
@@ -133,18 +148,14 @@ func _process(delta):
 
 	last_mouse_pos = mouse_pos
 
-func _shift_window_left():
-	var window = get_window()
-	var usable_rect = DisplayServer.screen_get_usable_rect()
+func _keep_window_on_screen(window, usable_rect):
+	# Clamp horizontally only
+	if window.position.x < usable_rect.position.x:
+		window.position.x = usable_rect.position.x
 
-	var new_x = window.position.x - drop_left_shift
-	new_x = clamp(
-		new_x,
-		usable_rect.position.x,
-		usable_rect.position.x + usable_rect.size.x - window.size.x
-	)
-
-	window.position.x = int(new_x)
+	var right = window.position.x + window.size.x
+	if right > usable_rect.position.x + usable_rect.size.x:
+		window.position.x = usable_rect.position.x + usable_rect.size.x - window.size.x
 
 func _update_drag_when_held_shift(window):
 	if not drag_when_held_panel:
